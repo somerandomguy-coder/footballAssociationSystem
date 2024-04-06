@@ -5,11 +5,14 @@ public class Teams {
     public Teams()
     {
     this.teams = new ArrayList<>();
-    teams.addLast(new Team("Suns"));
-    teams.addLast(new Team("Bulls"));
-    teams.addLast(new Team("Hawks"));
-    teams.addLast(new Team("Nets"));
+    initializeTeams();
+    }
 
+    private void initializeTeams() {
+        teams.addLast(new Team("Suns"));
+        teams.addLast(new Team("Bulls"));
+        teams.addLast(new Team("Hawks"));
+        teams.addLast(new Team("Nets"));
     }
 
     public void use(){
@@ -20,7 +23,7 @@ public class Teams {
                     printAllTeam();
                     break;
                 case '2':
-                    printAllPlayer();
+                    Players.printAllPlayer();
                     break;
                 case '3':
                     System.out.println("add..");
@@ -54,14 +57,7 @@ public class Teams {
         for (Team team : teams){
             System.out.printf(Utils.teamsFormat, team.getName(), team.getPlayers().numOfPlayer(), team.getPlayers().averageOfCredit(), team.getPlayers().averageOfAge());
         }
-    }
-    private void printAllPlayer(){
-        Utils.DisplayPlayerFromAllTeamsHeader();
-        for (Player player : Players.allPlayers){
-            System.out.printf(Utils.DisplayPlayerFromAllTeamsFormat, player.getName(), player.getCredit(),
-                    player.getLevel(), player.getAge(), player.getNo(), player.getTeam());
-        }
-        Utils.DisplayPlayerFromAllTeamsEnd();
+        Utils.teamTableEnd();
     }
     private String getInputName(){
         System.out.print("Please enter the team's name that you want to manage: ");
