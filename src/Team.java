@@ -37,13 +37,14 @@ public class Team {
                     printTeamPlayer();
                     break;
                 case '2':
-                    addNewPlayer();
+                    String playerName = addNewPlayer();
+                    System.out.println("Player "+ playerName +" added!");
                     break;
                 case '3':
                     updatePlayer();
                     break;
                 case '4':
-                    deletePlayer();
+                    String delete = deletePlayer();
                     break;
             }
             choice = getChar();
@@ -57,7 +58,7 @@ public class Team {
         }
         Utils.playerTableEnd();
     }
-    private void addNewPlayer(){
+    private String addNewPlayer(){
         String playerName = getInputName();
         double credit = getInputCredit();
         int age = getInputAge();
@@ -71,7 +72,7 @@ public class Team {
         Player player = new Player(playerName, credit, age, name, No);
         Players.allPlayers.add(player);
         setTeamPlayer();
-        System.out.println("Player "+ playerName +" added!");
+        return playerName;
     }
     private Player DuplicateWith(int No){
         for (Player player : players.getPlayers()) {
@@ -83,6 +84,7 @@ public class Team {
         String delete = deletePlayer();
         if (delete.equals("success")) {
             addNewPlayer();
+            System.out.println("Player information updated.");
         }
     }
     private String deletePlayer(){
@@ -91,6 +93,7 @@ public class Team {
         if (matchedPlayer != null) {
             Players.removeFromAllPlayers(matchedPlayer);
             setTeamPlayer();
+            System.out.println("Player deleted.");
             return "success";
         } else {
             System.out.println("Player does not exist.");

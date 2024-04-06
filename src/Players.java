@@ -3,33 +3,48 @@ import java.util.ArrayList;
 public class Players {
     private ArrayList<Player> Players;
     public static ArrayList<Player> allPlayers;
+
     public Players() {
         this.Players = new ArrayList<>();
         allPlayers = initialAllPlayers();
     }
+
     public Players(boolean notFirstTime) {
         this.Players = new ArrayList<>();
     }
+
     public float averageOfCredit() {
         float sum = 0;
         for (Player player : Players) {
             sum += player.getCredit();
         }
-        return sum / Players.size();
+        if (sum == 0){
+            return 0;
+        } else {
+            return sum / Players.size();
+        }
     }
+
     public float averageOfAge() {
         float sum = 0;
         for (Player player : Players) {
             sum += player.getAge();
         }
-        return sum / Players.size();
+        if (sum == 0){
+            return 0;
+        } else {
+            return sum / Players.size();
+        }
     }
+
     public int numOfPlayer() {
         return Players.size();
     }
+
     public ArrayList<Player> getPlayers() {
         return Players;
     }
+
     private ArrayList<Player> initialAllPlayers() {
         ArrayList<Player> allPlayers = new ArrayList<>();
         allPlayers.add(new Player("Devin Booker", 2500.0, 21, "Suns", 1));
@@ -54,27 +69,19 @@ public class Players {
         allPlayers.add(new Player("Seth Curry", 1900.0, 32, "Nets", 30));
         return allPlayers;
     }
+
     public void addPlayer(Player player) {
         Players.add(player);
     }
 
-    public static void removeFromAllPlayers(Player removedplayer){
-        for (int i = 0; i < allPlayers.size(); i++){
-            if (allPlayers.get(i).getNo().equals(removedplayer.getNo()) && allPlayers.get(i).getTeam().equals(removedplayer.getTeam())){
+    public static void removeFromAllPlayers(Player removedplayer) {
+        for (int i = 0; i < allPlayers.size(); i++) {
+            if (allPlayers.get(i).getNo().equals(removedplayer.getNo()) && allPlayers.get(i).getTeam().equals(removedplayer.getTeam())) {
                 System.out.println("yo ima delete");
                 allPlayers.remove(i);
                 break;
             }
         }
-    }
-
-    public static void printAllPlayer(){
-        Utils.DisplayPlayerFromAllTeamsHeader();
-        for (Player player : allPlayers){
-            System.out.printf(Utils.DisplayPlayerFromAllTeamsFormat, player.getName(), player.getCredit(),
-                    player.getLevel(), player.getAge(), player.getNo(), player.getTeam());
-        }
-        Utils.DisplayPlayerFromAllTeamsEnd();
     }
 }
 

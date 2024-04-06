@@ -23,33 +23,105 @@ public class Teams {
                     printAllTeam();
                     break;
                 case '2':
-                    Players.printAllPlayer();
+                    printAllPlayer();
                     break;
                 case '3':
-                    System.out.println("add..");
+                    addNewTeam();
                     break;
                 case '4':
-                    String name = getInputName();
-                    boolean haveName = false;
-                    for (Team team : teams){
-                        if (team.getName().equals(name)){
-                            team.use();
-                            haveName = true;
-                        }
-                    }
-                    if (!haveName){
-                        System.out.println("No team");
-                    }
+                    manageTeam();
                     break;
                 case '5':
-                    System.out.println("deleted team...");
+                    deleteTeam();
                     break;
                 case '6':
-                    System.out.println("level1 player1...");
+                    printPlayerByLevel();
                     break;
             }
             choice = getChar();
         }
+    }
+
+    private void printPlayerByLevel() {
+        String level = getInputLevel();
+        ArrayList<Player> lstOfPlayer = matchedLevelPlayers(level);
+        while (lstOfPlayer.isEmpty()){
+            System.out.print("No such level! Please re-enter the level: ");
+            level = In.nextLine();
+            lstOfPlayer = matchedLevelPlayers(level);
+        }
+        Utils.DisplayPlayerFromAllTeamsHeader();
+        for (Player player : lstOfPlayer){
+            System.out.printf(Utils.DisplayPlayerFromAllTeamsFormat, player.getName(), player.getCredit(),
+                    player.getLevel(), player.getAge(), player.getNo(), player.getTeam());
+        }
+        Utils.DisplayPlayerFromAllTeamsEnd();
+    }
+    private ArrayList<Player> matchedLevelPlayers(String level) {
+        ArrayList<Player> playerLst = new ArrayList<>();
+        for (Player player : Players.allPlayers){
+            if (player.getLevel().equals(level)){
+                playerLst.add(player);
+            }
+        }
+        return playerLst;
+    }
+
+    private String getInputLevel() {
+        System.out.print("Please enter the player's level that you want to view: ");
+        return In.nextLine();
+    }
+
+    private void deleteTeam() {
+        System.out.print("Please enter the team's name that you want to delete: ");
+        String teamName = In.nextLine();
+        Team matchedteam = matchedTeamName(teamName);
+        if (matchedteam == null){
+            System.out.println("The team you want to delete does not exist!");
+        } else {
+            teams.remove(matchedteam);
+            System.out.println("The team " + teamName + " has been deleted.");
+        }
+    }
+
+    private void manageTeam() {
+        String name = getInputName();
+        boolean haveName = false;
+        for (Team team : teams){
+            if (team.getName().equals(name)){
+                team.use();
+                haveName = true;
+            }
+        }
+        if (!haveName){
+            System.out.println("Team does not exist!");
+        }
+    }
+
+    private void addNewTeam() {
+        String teamName = getTeamName();
+        Team matchedteam = matchedTeamName(teamName);
+        while (matchedteam!=null){
+            System.out.print("Team " + matchedteam.getName() + " already exist! Please enter a new name: ");
+            teamName = In.nextLine();
+            matchedteam = matchedTeamName(teamName);
+        }
+        teams.addLast(new Team(teamName));
+        System.out.println("Team " + teamName + " added!");
+    }
+
+    private Team matchedTeamName(String teamName) {
+        for (Team team : teams){
+            if (team.getName().equals(teamName)){
+                return team;
+            }
+        }
+        return null;
+    }
+
+    private String getTeamName() {
+        System.out.print("Please enter the name of the team: ");
+        return In.nextLine();
     }
 
     private void printAllTeam(){
@@ -58,6 +130,20 @@ public class Teams {
             System.out.printf(Utils.teamsFormat, team.getName(), team.getPlayers().numOfPlayer(), team.getPlayers().averageOfCredit(), team.getPlayers().averageOfAge());
         }
         Utils.teamTableEnd();
+    }
+    private void printAllPlayer(){
+        Utils.DisplayPlayerFromAllTeamsHeader();
+        String teamName = "";
+        for (Team team : teams) {
+            teamName = team.getName();
+            for (Player player : Players.allPlayers) {
+                if (player.getTeam().equals(teamName)) {
+                    System.out.printf(Utils.DisplayPlayerFromAllTeamsFormat, player.getName(), player.getCredit(),
+                            player.getLevel(), player.getAge(), player.getNo(), player.getTeam());
+                }
+            }
+            Utils.DisplayPlayerFromAllTeamsEnd();
+        }
     }
     private String getInputName(){
         System.out.print("Please enter the team's name that you want to manage: ");
