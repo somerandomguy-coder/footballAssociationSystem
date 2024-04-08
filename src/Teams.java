@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 public class Teams {
-    private ArrayList<Team> teams;
+    private static ArrayList<Team> teams;
 
     public Teams()
     {
-    this.teams = new ArrayList<>();
+    teams = new ArrayList<>();
     initializeTeams();
     }
 
@@ -13,6 +13,10 @@ public class Teams {
         teams.addLast(new Team("Bulls"));
         teams.addLast(new Team("Hawks"));
         teams.addLast(new Team("Nets"));
+    }
+
+    public static ArrayList<Team> getTeams() {
+        return teams;
     }
 
     public void use(){

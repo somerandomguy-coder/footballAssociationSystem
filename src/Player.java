@@ -1,6 +1,6 @@
 public class Player {
     private final String name;
-    private final Double credit;
+    private Double credit;
     private final String level;
     private final Integer age;
     private final String team;
@@ -13,9 +13,9 @@ public class Player {
         this.team = team;
         this.No = no;
 
-        if (credit < 1000){
+        if (credit < 1000) {
             this.level = "Edge";
-        } else if (credit >= 1000 && credit < 1500){
+        } else if (credit >= 1000 && credit < 1500) {
             this.level = "Common";
         } else if (credit >= 1500 && credit < 2000) {
             this.level = "Core";
@@ -49,3 +49,4 @@ public class Player {
         return No;
     }
 }
+

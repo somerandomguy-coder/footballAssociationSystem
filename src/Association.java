@@ -5,7 +5,7 @@ public class Association
     public Association()
     {
         this.teams = new Teams();
-        // TODO: season
+        this.season = new Season();
     }
     public void use(){
         char choice = getChar();
@@ -15,8 +15,7 @@ public class Association
                     teams.use();
                     break;
                 case '2':
-                    //TODO: season
-                    System.out.println("season");
+                    season.use();
                     break;
             }
             choice = getChar();

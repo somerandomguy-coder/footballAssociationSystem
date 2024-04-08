@@ -77,7 +77,6 @@ public class Players {
     public static void removeFromAllPlayers(Player removedplayer) {
         for (int i = 0; i < allPlayers.size(); i++) {
             if (allPlayers.get(i).getNo().equals(removedplayer.getNo()) && allPlayers.get(i).getTeam().equals(removedplayer.getTeam())) {
-                System.out.println("yo ima delete");
                 allPlayers.remove(i);
                 break;
             }

@@ -4,10 +4,15 @@ public class Team {
 
     public Team(String name)
     {
-        this.name = name;
-        setTeamPlayer(true);
+        if (!Game.updated) {
+            this.name = name;
+            setTeamPlayer(true);
+        } else {
+            this.name = name;
+            setTeamPlayer();
+        }
     }
-    private void setTeamPlayer() {
+    public void setTeamPlayer() {
         players = new Players(true);
         for (Player player : Players.allPlayers){
             if (player.getTeam().equals(name)){
@@ -44,7 +49,7 @@ public class Team {
                     updatePlayer();
                     break;
                 case '4':
-                    String delete = deletePlayer();
+                    deletePlayer();
                     break;
             }
             choice = getChar();
